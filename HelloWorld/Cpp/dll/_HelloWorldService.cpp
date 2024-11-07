@@ -52,6 +52,10 @@ HRESULT STDMETHODCALLTYPE CHelloWorldService::FilterNextFrame(
             return hr;
         }
 
+
+        constexpr int size = sizeof(DkmCallStackFilterOptions_t);
+        constexpr int offset = offsetof(DkmStackContext, m_FormatOptions);
+
         // Create the hello world frame object, and stick it in the array
         hr = DkmStackWalkFrame::Create(
             pStackContext->Thread(),

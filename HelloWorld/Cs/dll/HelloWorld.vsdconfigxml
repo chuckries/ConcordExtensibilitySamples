@@ -21,7 +21,7 @@ For more information about this file, see https://github.com/Microsoft/ConcordEx
 
   <ManagedComponent
     ComponentId="51736b14-9fb4-4b6d-8aca-a10a2b7ae768"
-    ComponentLevel="9995000"
+    ComponentLevel="9992500"
     AssemblyName="HelloWorld">
     <!--NOTE: For more information on ComponentLevel, see https://github.com/Microsoft/ConcordExtensibilitySamples/wiki/Component-Levels-->
 
@@ -30,7 +30,7 @@ For more information about this file, see https://github.com/Microsoft/ConcordEx
       <Implements>
         <InterfaceGroup>
           <NoFilter/>
-          <Interface Name="IDkmCallStackFilter"/>
+			<Interface Name="IDkmLanguageExpressionEvaluator"/>
         </InterfaceGroup>
       </Implements>
     </Class>
