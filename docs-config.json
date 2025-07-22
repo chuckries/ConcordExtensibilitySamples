@@ -1,0 +1,15 @@
+{
+  "packages": [
+    {
+      "id": "Microsoft.VisualStudio.Debugger.Engine",
+      "version": "17.14.1051801",
+      "description": "Visual Studio Debugger Engine APIs and interfaces",
+      "framework": "netstandard2.0"
+    }
+  ],
+  "docfx": {
+    "siteName": "Visual Studio Debugger Engine Documentation",
+    "siteDescription": "API documentation for Visual Studio Debugger Engine extensibility interfaces",
+    "baseUrl": "https://microsoft.github.io/ConcordExtensibilitySamples/"
+  }
+}
