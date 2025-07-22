@@ -62,8 +62,11 @@ jobs:
     - name: Generate Documentation
       shell: pwsh
       run: |
-        $cleanFlag = if ("${{ github.event.inputs.force_rebuild }}" -eq "true") { "-Clean" } else { "" }
-        & "./scripts/Generate-Docs.ps1" -ConfigFile "docs-config.json" -OutputPath "docs" $cleanFlag
+        if ("${{ github.event.inputs.force_rebuild }}" -eq "true") {
+          & "./scripts/Generate-Docs.ps1" -ConfigFile "docs-config.json" -OutputPath "docs" -Clean
+        } else {
+          & "./scripts/Generate-Docs.ps1" -ConfigFile "docs-config.json" -OutputPath "docs"
+        }
 
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
