@@ -29,3 +29,10 @@ Microsoft.VisualStudio.Glass
 /Iris/Programs/*.pdb
 /Iris/ic/Properties/launchSettings.json
 /Iris/xplat-package/Properties/launchSettings.json
+
+# DocFX
+docs/_site/
+docs/api/
+docs/docfx.json
+docs/filterConfig.yml
+*.tmp

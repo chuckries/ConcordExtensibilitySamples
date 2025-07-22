@@ -1,0 +1,87 @@
+name: Generate and Deploy Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'docs-config.json'
+      - 'scripts/Generate-Docs.ps1'
+      - '.github/workflows/docs.yml'
+  schedule:
+    # Run once every three months (1st day of Jan, Apr, Jul, Oct at 2 AM UTC)
+    - cron: '0 2 1 1,4,7,10 *'
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: 'Force complete rebuild'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  generate-docs:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Install DocFX
+      run: dotnet tool install -g docfx
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('docs-config.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Generate Documentation
+      shell: pwsh
+      run: |
+        if ("${{ github.event.inputs.force_rebuild }}" -eq "true") {
+          & "./scripts/Generate-Docs.ps1" -ConfigFile "docs-config.json" -OutputPath "docs" -Clean
+        } else {
+          & "./scripts/Generate-Docs.ps1" -ConfigFile "docs-config.json" -OutputPath "docs"
+        }
+
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: docs/_site
+
+  deploy:
+    needs: generate-docs
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
