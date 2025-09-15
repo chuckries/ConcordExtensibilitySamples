@@ -29,3 +29,5 @@
 using namespace ATL;
 using namespace Microsoft::VisualStudio::Debugger;
 using namespace Microsoft::VisualStudio::Debugger::CallStack;
+using namespace Microsoft::VisualStudio::Debugger::Evaluation;
+using namespace Microsoft::VisualStudio::Debugger::Symbols;

@@ -23,11 +23,11 @@ For more information about this file, see https://github.com/Microsoft/ConcordEx
   can be done with the 'Create GUID' tool ('Tools->Create GUID' in Visual Sudio or 
   guidgen.exe from the command line). -->
 
-  <NativeComponent
+  <!--<NativeComponent
     ComponentId="51736b14-9fb4-4b6d-8aca-a10a2b7ae768"
     ComponentLevel="9995000"
     ModuleName="HelloWorld.dll">
-    <!--NOTE: For more information on ComponentLevel, see https://github.com/Microsoft/ConcordExtensibilitySamples/wiki/Component-Levels -->
+    --><!--NOTE: For more information on ComponentLevel, see https://github.com/Microsoft/ConcordExtensibilitySamples/wiki/Component-Levels --><!--
 
     <Class Name="CHelloWorldService" ClassId="187b69ed-ee2c-4f28-9789-0387d577dc10">
 
@@ -39,5 +39,27 @@ For more information about this file, see https://github.com/Microsoft/ConcordEx
       </Implements>
     </Class>
   
-  </NativeComponent>
+  </NativeComponent>-->
+
+    <NativeComponent
+        ComponentId="066d5c00-ad1b-4d61-ab81-900809e090e2"
+        ComponentLevel="9992000"
+        ModuleName="HelloWorld.dll"
+        Synchronized="true">
+
+        <Class Name="CRustExpressionEvaluatorService" ClassId="587c7baf-a2a6-4be3-99a3-4fc1c7512176">
+
+            <Implements>
+                <InterfaceGroup>
+                    <Filter>
+                        <LanguageId RequiredValue="DkmLanguageId.Rust"/>
+                        <RuntimeId RequiredValue="DkmRuntimeId.Native"/>
+                    </Filter>
+                    <Interface Name="IDkmLanguageExpressionEvaluator"/>
+                </InterfaceGroup>
+            </Implements>
+        </Class>
+        
+    </NativeComponent>
+    
 </Configuration>

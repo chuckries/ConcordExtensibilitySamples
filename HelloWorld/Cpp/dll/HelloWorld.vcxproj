@@ -34,6 +34,10 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\$(Configuration)\$(Platform)\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VSInstallDir)DIA SDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VSInstallDir)DIA SDK\lib\amd64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -53,6 +57,7 @@
       <ModuleDefinitionFile>.\HelloWorld.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>diaguids.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -89,12 +94,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="_HelloWorldService.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="HelloWorldDataItem.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="_RustExpressionEvaluatorService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HelloWorld.def" />
@@ -106,16 +111,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-
     <ClInclude Include="$(NugetPackagesDirectory)Microsoft.VSSDK.Debugger.VSDebugEng.$(ConcordPackageVersion)\build\native\inc\VSDebugEng.h" />
     <ClInclude Include="$(NugetPackagesDirectory)Microsoft.VSSDK.Debugger.VSDebugEng.$(ConcordPackageVersion)\build\native\inc\vsdebugeng.templates.h" />
-    <ClInclude Include="_HelloWorldService.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="HelloWorldDataItem.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="$(IntDir)HelloWorld.Contract.h" />
+    <ClInclude Include="$(IntDir)RustExpressionEvaluatorService.Contract.h" />
+    <ClInclude Include="_RustExpressionEvaluatorService.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HelloWorld.rc" />
